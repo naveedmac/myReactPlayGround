@@ -1,3 +1,59 @@
+/*
+Defining Classes
+
+class ClassName{  //starts with key word "class" 
+                    and followed by ClassName 
+                    and then Curly braces "{}"
+
+    constructor(argument1 = 1,argument2='ABC'){ // you can set default values like this if no values is passed otherwise it will show undefined
+        you can define constructor with keyword constructor as above
+        this.argument1=argument1 // you can access object variables(properties)
+        this.argument2=argument2 // Setter - here we are assigning values to object variable passed through constructor
+
+    }
+
+    methodA(argument3){ // passing arguments to class variables
+        you can not use arrow functions while defining class methods
+        return this.argutment1 + argument3 // retruning values from methods
+    }
+
+}
+Creating object of class 
+const objName= new ClassName(); // new key word is required to create object of class
+
+STRING INTERPOLATION:
+Template String:
+let name = 'John'
+let string = 'Hi, My name is ${name}'
+
+Common Technique:
+****************
+(to be used in browser console)
+>!'' // '' , undefined : is a falsy value, by using ! we convert it truthy value
+true
+>!!''  // to check get value type we use this technique
+false 
+
+INHERITANCE 
+***********
+
+class NameOfChildClass extends NameOfParentClass{ // extends is used for inheriting from parent class 
+    constructor(argument4,argument5){
+        super(argument1, argument2); // this calls constructor function of parent class, we have to pass its arguments from child class.
+        this.argument4=argument4;
+        this.argument5=argument5;
+        return `Argument1: ${argument1}, Argument2: ${argument2}, Argument4: ${argument4} Argument5: ${argument5}` 
+
+    }
+    methodB(argument6,argument6){ // passing arguments to class variables
+        let greetings= super.methodA(); // Accessing methods from Parent class with 'super' word
+        
+        
+    }
+}
+ SEE BELOW FOR EXAMPLES
+*/ 
+
 class Person{
     constructor(name="anonymus", age=0){
         this.name=name;
@@ -38,7 +94,7 @@ class Traveler extends Person{
         return !!this.location //👈🏻 !(false) == true => !(true) == false . This technique is use to check the value in boolean form.
     }
     getGreetings(){
-        let greetings= super.getGreetings();
+        let greetings= super.getGreetings(); // if we want to get access to parent functions, we use super.
 
         if (this.location){
             return greetings+= `I'm visiting from ${this.location}`
