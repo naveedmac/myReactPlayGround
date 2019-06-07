@@ -96,11 +96,19 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
+        key: "handlePick",
+
+        // create an event we will create class method as below 👇🏻
+        value: function handlePick() {
+            alert('Action Button Clicked');
+        }
+    }, {
         key: "render",
         value: function render() {
+            {/* We dont want to class function, we want to just reference it as below, so no '()'*/}
             return React.createElement(
                 "button",
-                null,
+                { onClick: this.handlePick },
                 "What Should I do?"
             );
         }
@@ -119,17 +127,26 @@ var Options = function (_React$Component4) {
     }
 
     _createClass(Options, [{
+        key: "handleRemoveAll",
+        value: function handleRemoveAll() {
+            alert('Remove all clicked');
+        }
+    }, {
         key: "render",
         value: function render() {
             return React.createElement(
                 "div",
                 null,
+                React.createElement(
+                    "button",
+                    { onClick: this.removeAll },
+                    "Remove All"
+                ),
                 " ",
                 this.props.options.map(function (option) {
                     return React.createElement(Option, { key: option, optionText: option });
                 }),
-                React.createElement(Option, { option: "option" }),
-                React.createElement(Option, null)
+                " "
             );
         }
     }]);
@@ -170,12 +187,32 @@ var AddOption = function (_React$Component6) {
     }
 
     _createClass(AddOption, [{
+        key: "handleForm",
+        value: function handleForm(e) {
+            e.preventDefault();
+            var option = e.target.elements.option.value.trim(); // trim removes the extra spaces from front and end of string
+            if (option) {
+                alert("Form Submitted. Value in Option : " + option);
+            }
+        }
+        // handleAddOption(){ }
+
+    }, {
         key: "render",
         value: function render() {
             return React.createElement(
                 "div",
                 null,
-                "AddOption component here"
+                React.createElement(
+                    "form",
+                    { onSubmit: this.handleForm },
+                    React.createElement("input", { type: "text", name: "option" }),
+                    React.createElement(
+                        "button",
+                        null,
+                        "Add Option"
+                    )
+                )
             );
         }
     }]);

@@ -39,27 +39,18 @@ class Header extends React.Component{  // we extend React.Component class to cre
     }
 }
 class Action extends React.Component{
-    // create an event we will create class method as below 👇🏻
-    handlePick(){
-        alert('Action Button Clicked')
-    }
     render(){
-        {/* We dont want to class function, we want to just reference it as below, so no '()'*/}
-        return <button onClick={this.handlePick}>What Should I do?</button>
+        return <button>What Should I do?</button>
     }
 }
 class Options extends React.Component{
-    handleRemoveAll(){
-        alert('Remove all clicked')
-    }
     render(){
         return <div>
-        <button onClick={this.removeAll}>Remove All</button>
         {/*this.props.options.length*/} {/*If we are creating an array of JSX as below for option component we need key props e.g.👇🏻, but key isn't going to be available in component, it is a special reserve word  */} 
-        {this.props.options.map((option)=> <Option key={option} optionText={option}/>)} {/* We dont use curly braces, otherwise it wouldnt work*/}
+        {this.props.options.map((option)=> <Option key={option} optionText={option}/>)}{/* We dont use curly braces, otherwise it wouldnt work*/}
 
-        
-        
+        <Option option={"option"}/> 
+        <Option />
         </div>
     }
 }
@@ -69,23 +60,8 @@ class Option extends React.Component{
     }
 }
 class AddOption extends React.Component{
-    handleForm(e){
-        e.preventDefault();
-        const option=e.target.elements.option.value.trim();// trim removes the extra spaces from front and end of string
-        if (option){
-            alert(`Form Submitted. Value in Option : ${option}`)
-
-        }
-    }
-    // handleAddOption(){ }
-
     render(){
-        return <div>
-        <form onSubmit={this.handleForm}>
-        <input type="text" name="option" />
-        <button >Add Option</button>
-        </form>
-        </div>
+        return <div>AddOption component here</div>
     }
 }
 /*const jsx=(
