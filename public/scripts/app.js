@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -8,6 +8,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/* Props  : Passing value to the components
+We pass props by setting key value pair as we do with html, like id, class,etc.
+Key can be any thing we like, title= "Indecision App"
+we can access these props(key values) as we do for normal classes by using "this." + "props" i.e. this.props.key
+
+*/
 //Creating React Component Class
 
 //Notes: for React Components we need uppercase letter to define class.
@@ -22,14 +28,19 @@ var IndecisionApp = function (_React$Component) {
     }
 
     _createClass(IndecisionApp, [{
-        key: 'render',
+        key: "render",
         value: function render() {
+            var title = "Indecision App";
+            var subtitle = "Put your life in hands of computer";
+            var options = ["Thing One", "Thing Two", "Thing Four"];
+            // title={title} we passing javascript expression : string to make it mor flexible.
+            // No commas "," when we are passing two or more props e.g. <Header title={title} subtitle={subtitle}  /> 
             return React.createElement(
-                'div',
+                "div",
                 null,
-                React.createElement(Header, null),
+                React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Action, null),
-                React.createElement(Options, null),
+                React.createElement(Options, { options: options }),
                 React.createElement(AddOption, null)
             );
         }
@@ -48,22 +59,24 @@ var Header = function (_React$Component2) {
     }
 
     _createClass(Header, [{
-        key: 'render',
+        key: "render",
         // we extend React.Component class to create REACT COMPONENT
         value: function render() {
             // REACT COMPONENT needs render function 
+            // console.log(this.props); // this is how we dump object values on screen
+            // Writing screen string in jsx we use parenthisis as we did for title 👇🏻
             return React.createElement(
-                'div',
+                "div",
                 null,
                 React.createElement(
-                    'h1',
+                    "h1",
                     null,
-                    'Indecision App'
+                    this.props.title
                 ),
                 React.createElement(
-                    'h2',
+                    "h2",
                     null,
-                    'Put your life in hands of computer'
+                    this.props.subtitle
                 )
             ); // render returns JSX,this is compulsory part of React Component.
 
@@ -83,12 +96,12 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             return React.createElement(
-                'button',
+                "button",
                 null,
-                'What Should I do?'
+                "What Should I do?"
             );
         }
     }]);
@@ -106,12 +119,16 @@ var Options = function (_React$Component4) {
     }
 
     _createClass(Options, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             return React.createElement(
-                'div',
+                "div",
                 null,
-                React.createElement(Option, null),
+                " ",
+                this.props.options.map(function (option) {
+                    return React.createElement(Option, { key: option, optionText: option });
+                }),
+                React.createElement(Option, { option: "option" }),
                 React.createElement(Option, null)
             );
         }
@@ -130,12 +147,12 @@ var Option = function (_React$Component5) {
     }
 
     _createClass(Option, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             return React.createElement(
-                'div',
+                "div",
                 null,
-                'Option component here'
+                this.props.optionText
             );
         }
     }]);
@@ -153,12 +170,12 @@ var AddOption = function (_React$Component6) {
     }
 
     _createClass(AddOption, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             return React.createElement(
-                'div',
+                "div",
                 null,
-                'AddOption component here'
+                "AddOption component here"
             );
         }
     }]);
