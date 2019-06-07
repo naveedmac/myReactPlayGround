@@ -2,6 +2,17 @@
 
 //Notes: for React Components we need uppercase letter to define class.
 //React uses Uppercase letter to differentiate between html tags and reacts components
+class IndecisionApp extends React.Component{
+    render(){
+        return <div>
+                <Header /> 
+                <Action />
+                <Options />
+                <AddOption />
+            </div>
+    }
+}
+
 class Header extends React.Component{  // we extend React.Component class to create REACT COMPONENT
     render(){ // REACT COMPONENT needs render function 
         return <div>
@@ -20,21 +31,31 @@ class Action extends React.Component{
 }
 class Options extends React.Component{
     render(){
-        return <div>Options component here</div>
+        return <div>
+        <Option /> 
+        <Option />
+        </div>
     }
 }
-class addOption extends React.Component{
+class Option extends React.Component{
     render(){
-        return <div>addOption component here</div>
+        return <div>Option component here</div>
     }
 }
-const jsx=(
+class AddOption extends React.Component{
+    render(){
+        return <div>AddOption component here</div>
+    }
+}
+/*const jsx=(
     <div>
     <Header /> 
     <Action />
     <Options />
-    <addOption />
+    <AddOption />
     </div>);
 
-
-ReactDOM.render(jsx,document.getElementById('app')) // Render React component we use this 
+*/
+// ReactDOM.render(jsx,document.getElementById('app')) // Render React component we use this 
+// 👆🏻 Instead of JSX we can provide direct react component like this 👇🏻
+ReactDOM.render(<IndecisionApp />,document.getElementById('app')) // Render React component we use this 
