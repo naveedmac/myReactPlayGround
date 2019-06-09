@@ -6,7 +6,7 @@ class ClassName{  //starts with key word "class"
                     and then Curly braces "{}"
 
     constructor(argument1 = 1,argument2='ABC'){ // you can set default values like this if no values is passed otherwise it will show undefined
-        you can define constructor with keyword constructor as above
+        you need to define constructor with keyword constructor as above
         this.argument1=argument1 // you can access object variables(properties)
         this.argument2=argument2 // Setter - here we are assigning values to object variable passed through constructor
 
@@ -19,7 +19,7 @@ class ClassName{  //starts with key word "class"
 
 }
 Creating object of class 
-const objName= new ClassName(); // new key word is required to create object of class
+const objName= new ClassName(arg1,arg2); // new key word is required to create object of class
 
 STRING INTERPOLATION:
 Template String:
@@ -38,20 +38,22 @@ INHERITANCE
 ***********
 
 class NameOfChildClass extends NameOfParentClass{ // extends is used for inheriting from parent class 
-    constructor(argument4,argument5){
+    constructor(argument1 = 1,argument2='ABC',argument4,argument5){
         super(argument1, argument2); // this calls constructor function of parent class, we have to pass its arguments from child class.
         this.argument4=argument4;
         this.argument5=argument5;
         return `Argument1: ${argument1}, Argument2: ${argument2}, Argument4: ${argument4} Argument5: ${argument5}` 
 
     }
-    methodB(argument6,argument6){ // passing arguments to class variables
+    methodB(argument6,argument7){ // passing arguments to class variables
         let greetings= super.methodA(); // Accessing methods from Parent class with 'super' word
-        
+        return greetings + argument6 + argument7
         
     }
 }
- SEE BELOW FOR EXAMPLES
+const objOfChildClass= new NameOfChildClass(arg1,arg2,arg4,arg5); // returns Argument1: arg1, Argument2: arg2, Argument4: arg4 Argument5: arg5
+objOfChildClass.methodB(arg3,arg6,arg7) // returns arg1+arg3+arg6+arg7
+SEE BELOW FOR EXAMPLES
 */ 
 
 class Person{

@@ -18,6 +18,15 @@ we can access these props(key values) as we do for normal classes by using "this
 
 //Notes: for React Components we need uppercase letter to define class.
 //React uses Uppercase letter to differentiate between html tags and reacts components
+var obj = {
+    name: "Naveed",
+    getName: function getName() {
+        return this.name;
+    }
+};
+var getName = obj.getName;
+console.log(getName());
+
 var IndecisionApp = function (_React$Component) {
     _inherits(IndecisionApp, _React$Component);
 
@@ -33,7 +42,7 @@ var IndecisionApp = function (_React$Component) {
             var title = "Indecision App";
             var subtitle = "Put your life in hands of computer";
             var options = ["Thing One", "Thing Two", "Thing Four"];
-            // title={title} we passing javascript expression : string to make it mor flexible.
+            // title={title} we are passing javascript expression : string to make it more flexible.
             // No commas "," when we are passing two or more props e.g. <Header title={title} subtitle={subtitle}  /> 
             return React.createElement(
                 "div",
@@ -105,7 +114,7 @@ var Action = function (_React$Component3) {
     }, {
         key: "render",
         value: function render() {
-            {/* We dont want to class function, we want to just reference it as below, so no '()'*/}
+            {/* We dont want to class function, we want to just reference it as below, so no round brackets '()'*/}
             return React.createElement(
                 "button",
                 { onClick: this.handlePick },
@@ -139,7 +148,7 @@ var Options = function (_React$Component4) {
                 null,
                 React.createElement(
                     "button",
-                    { onClick: this.removeAll },
+                    { onClick: this.handleRemoveAll },
                     "Remove All"
                 ),
                 " ",

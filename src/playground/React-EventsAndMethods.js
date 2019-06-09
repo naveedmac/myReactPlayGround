@@ -14,7 +14,7 @@ class IndecisionApp extends React.Component{
         const title= "Indecision App"
         const subtitle= "Put your life in hands of computer"
         const options=["Thing One","Thing Two","Thing Four"]
-        // title={title} we passing javascript expression : string to make it mor flexible.
+        // title={title} we are passing javascript expression : string to make it more flexible.
         // No commas "," when we are passing two or more props e.g. <Header title={title} subtitle={subtitle}  /> 
         return <div>
                 <Header title={title} subtitle={subtitle}  /> 
@@ -39,18 +39,27 @@ class Header extends React.Component{  // we extend React.Component class to cre
     }
 }
 class Action extends React.Component{
+    // create an event we will create class method as below 👇🏻
+    handlePick(){
+        alert('Action Button Clicked')
+    }
     render(){
-        return <button>What Should I do?</button>
+        {/* We dont want to class function, we want to just reference it as below, so no round brackets '()'*/}
+        return <button onClick={this.handlePick}>What Should I do?</button>
     }
 }
 class Options extends React.Component{
+    handleRemoveAll(){
+        alert('Remove all clicked')
+    }
     render(){
         return <div>
+        <button onClick={this.handleRemoveAll}>Remove All</button>
         {/*this.props.options.length*/} {/*If we are creating an array of JSX as below for option component we need key props e.g.👇🏻, but key isn't going to be available in component, it is a special reserve word  */} 
-        {this.props.options.map((option)=> <Option key={option} optionText={option}/>)}{/* We dont use curly braces, otherwise it wouldnt work*/}
+        {this.props.options.map((option)=> <Option key={option} optionText={option}/>)} {/* We dont use curly braces, otherwise it wouldnt work*/}
 
-        <Option option={"option"}/> 
-        <Option />
+        
+        
         </div>
     }
 }
@@ -60,8 +69,23 @@ class Option extends React.Component{
     }
 }
 class AddOption extends React.Component{
+    handleForm(e){
+        e.preventDefault();
+        const option=e.target.elements.option.value.trim();// trim removes the extra spaces from front and end of string
+        if (option){
+            alert(`Form Submitted. Value in Option : ${option}`)
+
+        }
+    }
+    // handleAddOption(){ }
+
     render(){
-        return <div>AddOption component here</div>
+        return <div>
+        <form onSubmit={this.handleForm}>
+        <input type="text" name="option" />
+        <button >Add Option</button>
+        </form>
+        </div>
     }
 }
 /*const jsx=(

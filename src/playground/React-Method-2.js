@@ -14,8 +14,7 @@ const obj={
         return this.name;
     }
 }
-const getName=obj.getName
-console.log(getName());
+console.log(obj.name);
 
 class IndecisionApp extends React.Component{
     
