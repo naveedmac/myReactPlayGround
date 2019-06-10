@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -8,237 +8,68 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-/* Props  : Passing value to the components
-We pass props by setting key value pair as we do with html, like id, class,etc.
-Key can be any thing we like, title= "Indecision App"
-we can access these props(key values) as we do for normal classes by using "this." + "props" i.e. this.props.key
+/* */
 
-*/
-//Creating React Component Class
+var Counter = function (_React$Component) {
+    _inherits(Counter, _React$Component);
 
-//Notes: for React Components we need uppercase letter to define class.
-//React uses Uppercase letter to differentiate between html tags and reacts components
-var obj = {
-    name: "Naveed",
-    getName: function getName() {
-        return this.name;
-    }
-};
-var getName = obj.getName;
-console.log(getName());
+    function Counter(props) {
+        _classCallCheck(this, Counter);
 
-var IndecisionApp = function (_React$Component) {
-    _inherits(IndecisionApp, _React$Component);
+        var _this = _possibleConstructorReturn(this, (Counter.__proto__ || Object.getPrototypeOf(Counter)).call(this, props));
 
-    function IndecisionApp() {
-        _classCallCheck(this, IndecisionApp);
-
-        return _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).apply(this, arguments));
+        _this.handleAddOne = _this.handleAddOne.bind(_this);
+        _this.handleMinusOne = _this.handleMinusOne.bind(_this);
+        _this.handleReset = _this.handleReset.bind(_this);
+        return _this;
     }
 
-    _createClass(IndecisionApp, [{
-        key: "render",
-        value: function render() {
-            var title = "Indecision App";
-            var subtitle = "Put your life in hands of computer";
-            var options = ["Thing One", "Thing Two", "Thing Four"];
-            // title={title} we are passing javascript expression : string to make it more flexible.
-            // No commas "," when we are passing two or more props e.g. <Header title={title} subtitle={subtitle}  /> 
-            return React.createElement(
-                "div",
-                null,
-                React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Action, null),
-                React.createElement(Options, { options: options }),
-                React.createElement(AddOption, null)
-            );
+    _createClass(Counter, [{
+        key: 'handleAddOne',
+        value: function handleAddOne() {
+            console.log('Add One Clicked');
         }
-    }]);
-
-    return IndecisionApp;
-}(React.Component);
-
-var Header = function (_React$Component2) {
-    _inherits(Header, _React$Component2);
-
-    function Header() {
-        _classCallCheck(this, Header);
-
-        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
-    }
-
-    _createClass(Header, [{
-        key: "render",
-        // we extend React.Component class to create REACT COMPONENT
+    }, {
+        key: 'handleMinusOne',
+        value: function handleMinusOne() {
+            console.log('Minus One Clicked');
+        }
+    }, {
+        key: 'handleReset',
+        value: function handleReset() {
+            console.log('Reset Clicked');
+        }
+    }, {
+        key: 'render',
         value: function render() {
-            // REACT COMPONENT needs render function 
-            // console.log(this.props); // this is how we dump object values on screen
-            // Writing screen string in jsx we use parenthisis as we did for title 👇🏻
             return React.createElement(
-                "div",
+                'div',
                 null,
                 React.createElement(
-                    "h1",
+                    'h1',
                     null,
-                    this.props.title
+                    'Count:'
                 ),
                 React.createElement(
-                    "h2",
-                    null,
-                    this.props.subtitle
-                )
-            ); // render returns JSX,this is compulsory part of React Component.
-
-        }
-    }]);
-
-    return Header;
-}(React.Component);
-
-var Action = function (_React$Component3) {
-    _inherits(Action, _React$Component3);
-
-    function Action() {
-        _classCallCheck(this, Action);
-
-        return _possibleConstructorReturn(this, (Action.__proto__ || Object.getPrototypeOf(Action)).apply(this, arguments));
-    }
-
-    _createClass(Action, [{
-        key: "handlePick",
-
-        // create an event we will create class method as below 👇🏻
-        value: function handlePick() {
-            alert('Action Button Clicked');
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            {/* We dont want to class function, we want to just reference it as below, so no round brackets '()'*/}
-            return React.createElement(
-                "button",
-                { onClick: this.handlePick },
-                "What Should I do?"
-            );
-        }
-    }]);
-
-    return Action;
-}(React.Component);
-
-var Options = function (_React$Component4) {
-    _inherits(Options, _React$Component4);
-
-    function Options() {
-        _classCallCheck(this, Options);
-
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
-    }
-
-    _createClass(Options, [{
-        key: "handleRemoveAll",
-        value: function handleRemoveAll() {
-            alert('Remove all clicked');
-        }
-    }, {
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "div",
-                null,
-                React.createElement(
-                    "button",
-                    { onClick: this.handleRemoveAll },
-                    "Remove All"
+                    'button',
+                    { onClick: this.handleAddOne },
+                    '+1'
                 ),
-                " ",
-                this.props.options.map(function (option) {
-                    return React.createElement(Option, { key: option, optionText: option });
-                }),
-                " "
-            );
-        }
-    }]);
-
-    return Options;
-}(React.Component);
-
-var Option = function (_React$Component5) {
-    _inherits(Option, _React$Component5);
-
-    function Option() {
-        _classCallCheck(this, Option);
-
-        return _possibleConstructorReturn(this, (Option.__proto__ || Object.getPrototypeOf(Option)).apply(this, arguments));
-    }
-
-    _createClass(Option, [{
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "div",
-                null,
-                this.props.optionText
-            );
-        }
-    }]);
-
-    return Option;
-}(React.Component);
-
-var AddOption = function (_React$Component6) {
-    _inherits(AddOption, _React$Component6);
-
-    function AddOption() {
-        _classCallCheck(this, AddOption);
-
-        return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).apply(this, arguments));
-    }
-
-    _createClass(AddOption, [{
-        key: "handleForm",
-        value: function handleForm(e) {
-            e.preventDefault();
-            var option = e.target.elements.option.value.trim(); // trim removes the extra spaces from front and end of string
-            if (option) {
-                alert("Form Submitted. Value in Option : " + option);
-            }
-        }
-        // handleAddOption(){ }
-
-    }, {
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "div",
-                null,
                 React.createElement(
-                    "form",
-                    { onSubmit: this.handleForm },
-                    React.createElement("input", { type: "text", name: "option" }),
-                    React.createElement(
-                        "button",
-                        null,
-                        "Add Option"
-                    )
+                    'button',
+                    { onClick: this.handleMinusOne },
+                    '-1'
+                ),
+                React.createElement(
+                    'button',
+                    { onClick: this.handleReset },
+                    'Reset'
                 )
             );
         }
     }]);
 
-    return AddOption;
+    return Counter;
 }(React.Component);
-/*const jsx=(
-    <div>
-    <Header /> 
-    <Action />
-    <Options />
-    <AddOption />
-    </div>);
 
-*/
-// ReactDOM.render(jsx,document.getElementById('app')) // Render React component we use this 
-// 👆🏻 Instead of JSX we can provide direct react component like this 👇🏻
-
-
-ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById('app')); // Render React component we use this
+ReactDOM.render(React.createElement(Counter, null), document.getElementById('app'));
