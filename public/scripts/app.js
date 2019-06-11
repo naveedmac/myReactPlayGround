@@ -8,7 +8,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-/* */
+/* React Component State:
+It requires following states:
+1. Set default state objects in a component
+2. Component render itself with default values(It is done automatically)
+3. Change State values based on event.
+4. Component re-render itself using new state values(It is done automatically)
+5. Start again at 3.
+*/
 
 var Counter = function (_React$Component) {
     _inherits(Counter, _React$Component);
@@ -21,23 +28,45 @@ var Counter = function (_React$Component) {
         _this.handleAddOne = _this.handleAddOne.bind(_this);
         _this.handleMinusOne = _this.handleMinusOne.bind(_this);
         _this.handleReset = _this.handleReset.bind(_this);
+        _this.state = { // Step 1: Set default state objects in a component
+            count: 0
+        };
         return _this;
     }
 
     _createClass(Counter, [{
         key: 'handleAddOne',
         value: function handleAddOne() {
-            console.log('Add One Clicked');
+            /*Step 3: We don't manually change the state directly, by calling this.state.count + 1,
+            instead we called small method on our component instance i.e. this.setState . 
+            this.setState method allow us to manitpulate state of componenet by arrow function.
+            It returns an object specifing various state new values that we have to change.
+            It takes an argument returning previous values of State as follows 👇🏻.
+            You donot provide all the values of state. Only provide the one that you want to change.
+            This is just updating component value that has change, not entire object.
+            Better way to use this.setState
+            *******************************
+            Our calls to this.setState is asynchronus. so it will not change value of state immediately. 
+            Because behind the scene it does lot of other works. So it is updated lately. So its better to use prevState
+            Step 4. Component re-render calls itself using new state values(It is done automatically)*/
+            this.setState(function (prevState) {
+                return { count: prevState.count + 1 };
+            });
         }
     }, {
         key: 'handleMinusOne',
         value: function handleMinusOne() {
-            console.log('Minus One Clicked');
+            this.setState(function (prevState) {
+                return { count: prevState.count - 1 };
+            });
+            // console.log('Minus One Clicked');
         }
     }, {
         key: 'handleReset',
         value: function handleReset() {
-            console.log('Reset Clicked');
+            this.setState(function () {
+                return { count: 0 };
+            });
         }
     }, {
         key: 'render',
@@ -48,8 +77,10 @@ var Counter = function (_React$Component) {
                 React.createElement(
                     'h1',
                     null,
-                    'Count:'
+                    'Count:',
+                    this.state.count
                 ),
+                ' ',
                 React.createElement(
                     'button',
                     { onClick: this.handleAddOne },

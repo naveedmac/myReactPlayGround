@@ -5,7 +5,7 @@ class ClassName{  //starts with key word "class"
                     and followed by ClassName 
                     and then Curly braces "{}"
 
-    constructor(argument1 = 1,argument2='ABC'){ // you can set default values like this if no values is passed otherwise it will show undefined
+    constructor(argument1 = 1,argument2='ABC'){ // you can set default values like this if no values is passed otherwise it will show "undefined"
         you need to define constructor with keyword constructor as above
         this.argument1=argument1 // you can access object variables(properties)
         this.argument2=argument2 // Setter - here we are assigning values to object variable passed through constructor

@@ -56,7 +56,7 @@ class Options extends React.Component{
         return <div>
         <button onClick={this.handleRemoveAll}>Remove All</button>
         {/*this.props.options.length*/} {/*If we are creating an array of JSX as below for option component we need key props e.g.👇🏻, but key isn't going to be available in component, it is a special reserve word  */} 
-        {this.props.options.map((option)=> <Option key={option} optionText={option}/>)} {/* We dont use curly braces, otherwise it wouldnt work*/}
+        {this.props.options.map((option)=> <Option key={option} optionText={option}/>)} {/* We dont use curly braces, otherwise it wouldnt work in return of arrow function*/}
 
         
         
