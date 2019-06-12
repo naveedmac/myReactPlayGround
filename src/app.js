@@ -9,17 +9,22 @@ we can access these props(key values) as we do for normal classes by using "this
 //Notes: for React Components we need uppercase letter to define class.
 //React uses Uppercase letter to differentiate between html tags and reacts components
 class IndecisionApp extends React.Component{
-    
+    constructor(props){
+        super(props);
+        this.state={
+            options: ["Thing One","Thing Two","Thing Four"]
+        }
+    }
     render(){
         const title= "Indecision App"
         const subtitle= "Put your life in hands of computer"
-        const options=["Thing One","Thing Two","Thing Four"]
+        
         // title={title} we passing javascript expression : string to make it mor flexible.
         // No commas "," when we are passing two or more props e.g. <Header title={title} subtitle={subtitle}  /> 
         return <div>
                 <Header title={title} subtitle={subtitle}  /> 
-                <Action />
-                <Options options={options}/>
+                <Action hasOptions={this.state.options.length>0 }/>
+                <Options options={this.state.options}/>
                 <AddOption />
             </div>
     }
@@ -40,7 +45,7 @@ class Header extends React.Component{  // we extend React.Component class to cre
 }
 class Action extends React.Component{
     render(){
-        return <button>What Should I do?</button>
+        return <button disabled={!this.props.hasOptions}>What Should I do?</button>
     }
 }
 class Options extends React.Component{
@@ -60,10 +65,26 @@ class Option extends React.Component{
     }
 }
 class AddOption extends React.Component{
+    handleForm(e){
+        e.preventDefault();
+        const option=e.target.elements.option.value.trim();// trim removes the extra spaces from front and end of string
+        if (option){
+            alert(`Form Submitted. Value in Option : ${option}`)
+
+        }
+    }
+    // handleAddOption(){ }
+
     render(){
-        return <div>AddOption component here</div>
+        return <div>
+        <form onSubmit={this.handleForm}>
+        <input type="text" name="option" />
+        <button >Add Option</button>
+        </form>
+        </div>
     }
 }
+
 /*const jsx=(
     <div>
     <Header /> 
