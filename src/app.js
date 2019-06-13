@@ -15,9 +15,15 @@ class IndecisionApp extends React.Component{
             options: ["Thing One","Thing Two","Thing Four"]
         }
         this.handleDeleteAll=this.handleDeleteAll.bind(this);
+        this.handlePick=this.handlePick.bind(this);
     }
     handleDeleteAll(){
         this.setState(()=>{return{ options:[]}})
+    }
+    handlePick(){
+        
+        let randomValue=Math.floor(Math.random()*this.state.options.length)
+        alert(this.state.options[randomValue])
     }
     render(){
         const title= "Indecision App"
@@ -27,7 +33,7 @@ class IndecisionApp extends React.Component{
         // No commas "," when we are passing two or more props e.g. <Header title={title} subtitle={subtitle}  /> 
         return <div>
                 <Header title={title} subtitle={subtitle}  /> 
-                <Action hasOptions={this.state.options.length>0 }/>
+                <Action handlePick={this.handlePick} hasOptions={this.state.options.length>0 }/>
                 <Options handleDeleteAll={this.handleDeleteAll} options={this.state.options}/>
                 <AddOption />
             </div>
@@ -48,18 +54,19 @@ class Header extends React.Component{  // we extend React.Component class to cre
     }
 }
 class Action extends React.Component{
+    
     render(){
-        return <button disabled={!this.props.hasOptions}>What Should I do?</button>
+        return <button onClick={this.props.handlePick} disabled={!this.props.hasOptions}>What Should I do?</button>
     }
 }
 class Options extends React.Component{
     render(){
         return <div>
         {/*this.props.options.length*/} {/*If we are creating an array of JSX as below for option component we need key props e.g.👇🏻, but key isn't going to be available in component, it is a special reserve word  */} 
-        <button onClick={this.props.handleDeleteAll}>Delete All</button>
+        <button onClick={this.props.handleDeleteAll}>Delete All</button>{/** Child cannot change its props but it can trigger the function which will change values of props and forces it parent component to Re-render like here 👈🏻 */}
         {this.props.options.map((option)=> <Option key={option} optionText={option}/>)}{/* We dont use curly braces, otherwise it wouldnt work*/}
 
-        <Option option={"option"}/> 
+        
         <Option />
         </div>
     }

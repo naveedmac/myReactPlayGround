@@ -30,6 +30,7 @@ var IndecisionApp = function (_React$Component) {
             options: ["Thing One", "Thing Two", "Thing Four"]
         };
         _this.handleDeleteAll = _this.handleDeleteAll.bind(_this);
+        _this.handlePick = _this.handlePick.bind(_this);
         return _this;
     }
 
@@ -39,6 +40,13 @@ var IndecisionApp = function (_React$Component) {
             this.setState(function () {
                 return { options: [] };
             });
+        }
+    }, {
+        key: "handlePick",
+        value: function handlePick() {
+
+            var randomValue = Math.floor(Math.random() * this.state.options.length);
+            alert(this.state.options[randomValue]);
         }
     }, {
         key: "render",
@@ -52,7 +60,7 @@ var IndecisionApp = function (_React$Component) {
                 "div",
                 null,
                 React.createElement(Header, { title: title, subtitle: subtitle }),
-                React.createElement(Action, { hasOptions: this.state.options.length > 0 }),
+                React.createElement(Action, { handlePick: this.handlePick, hasOptions: this.state.options.length > 0 }),
                 React.createElement(Options, { handleDeleteAll: this.handleDeleteAll, options: this.state.options }),
                 React.createElement(AddOption, null)
             );
@@ -113,7 +121,7 @@ var Action = function (_React$Component3) {
         value: function render() {
             return React.createElement(
                 "button",
-                { disabled: !this.props.hasOptions },
+                { onClick: this.props.handlePick, disabled: !this.props.hasOptions },
                 "What Should I do?"
             );
         }
@@ -146,7 +154,6 @@ var Options = function (_React$Component4) {
                 this.props.options.map(function (option) {
                     return React.createElement(Option, { key: option, optionText: option });
                 }),
-                React.createElement(Option, { option: "option" }),
                 React.createElement(Option, null)
             );
         }
