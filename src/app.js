@@ -14,6 +14,10 @@ class IndecisionApp extends React.Component{
         this.state={
             options: ["Thing One","Thing Two","Thing Four"]
         }
+        this.handleDeleteAll=this.handleDeleteAll.bind(this);
+    }
+    handleDeleteAll(){
+        this.setState(()=>{return{ options:[]}})
     }
     render(){
         const title= "Indecision App"
@@ -24,7 +28,7 @@ class IndecisionApp extends React.Component{
         return <div>
                 <Header title={title} subtitle={subtitle}  /> 
                 <Action hasOptions={this.state.options.length>0 }/>
-                <Options options={this.state.options}/>
+                <Options handleDeleteAll={this.handleDeleteAll} options={this.state.options}/>
                 <AddOption />
             </div>
     }
@@ -52,6 +56,7 @@ class Options extends React.Component{
     render(){
         return <div>
         {/*this.props.options.length*/} {/*If we are creating an array of JSX as below for option component we need key props e.g.👇🏻, but key isn't going to be available in component, it is a special reserve word  */} 
+        <button onClick={this.props.handleDeleteAll}>Delete All</button>
         {this.props.options.map((option)=> <Option key={option} optionText={option}/>)}{/* We dont use curly braces, otherwise it wouldnt work*/}
 
         <Option option={"option"}/> 

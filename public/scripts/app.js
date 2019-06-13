@@ -29,10 +29,18 @@ var IndecisionApp = function (_React$Component) {
         _this.state = {
             options: ["Thing One", "Thing Two", "Thing Four"]
         };
+        _this.handleDeleteAll = _this.handleDeleteAll.bind(_this);
         return _this;
     }
 
     _createClass(IndecisionApp, [{
+        key: "handleDeleteAll",
+        value: function handleDeleteAll() {
+            this.setState(function () {
+                return { options: [] };
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
             var title = "Indecision App";
@@ -45,7 +53,7 @@ var IndecisionApp = function (_React$Component) {
                 null,
                 React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Action, { hasOptions: this.state.options.length > 0 }),
-                React.createElement(Options, { options: this.state.options }),
+                React.createElement(Options, { handleDeleteAll: this.handleDeleteAll, options: this.state.options }),
                 React.createElement(AddOption, null)
             );
         }
@@ -130,6 +138,11 @@ var Options = function (_React$Component4) {
                 "div",
                 null,
                 " ",
+                React.createElement(
+                    "button",
+                    { onClick: this.props.handleDeleteAll },
+                    "Delete All"
+                ),
                 this.props.options.map(function (option) {
                     return React.createElement(Option, { key: option, optionText: option });
                 }),
