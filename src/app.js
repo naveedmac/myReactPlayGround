@@ -68,7 +68,7 @@ const Action=(props)=>{
 //         return <button onClick={this.props.handlePick} disabled={!this.props.hasOptions}>What Should I do?</button>
 //     }
 // }
-cosnt Options=(props)=>{
+const Options=(props)=>{
     return <div>
         {/*this.props.options.length*/} {/*If we are creating an array of JSX as below for option component we need key props e.g.👇🏻, but key isn't going to be available in component, it is a special reserve word  */} 
         <button 
@@ -92,11 +92,14 @@ cosnt Options=(props)=>{
 //         </div>
 //     }
 // }
-class Option extends React.Component{
-    render(){
-        return <div>{this.props.optionText}</div>
-    }
+const Option =(props)=>{
+    return <div>{props.optionText}</div>
 }
+// class Option extends React.Component{
+//     render(){
+//         return <div>{this.props.optionText}</div>
+//     }
+// }
 class AddOption extends React.Component{
     handleForm(e){
         e.preventDefault();
