@@ -12,14 +12,22 @@ class IndecisionApp extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            options: ["Thing One","Thing Two","Thing Four"]
+            options: []
         }
         this.handleDeleteAll=this.handleDeleteAll.bind(this);
         this.handlePick=this.handlePick.bind(this);
         this.handleAddOption=this.handleAddOption.bind(this)
     }
     handleAddOption(option){
-        this.setState((preState)=>{ return{options:preState.options.concat(option)}})
+        if (!option){
+            return "Please enter valid value to add item"
+        }else if (this.state.options.includes(option)){
+            console.log(option);
+            
+            return "Option already exsist in array"
+        }   
+        this.setState((preState)=>{ 
+            return{ options:preState.options.concat(option) }})
     }
     handleDeleteAll(){
         this.setState(()=>{return{ options:[]}})
@@ -108,19 +116,23 @@ class AddOption extends React.Component{
     constructor(props){
         super(props);
         this.handleAddOption=this.handleAddOption.bind(this);
+        this.state={
+            error: undefined
+        }
     }
     handleAddOption(e){
         e.preventDefault();
         const option=e.target.elements.option.value.trim();// trim removes the extra spaces from front and end of string
-        if (option){
-            
-            this.props.handleAddOption(option);
-        }
+        const error=this.props.handleAddOption(option);
+        this.setState(()=>{return {error}});{/** 👈🏻 Shorthand syntax of: error:error */}
+
+       
     }
     // handleAddOption(){ }
 
     render(){
         return <div>
+        {this.state.error && <p>{this.state.error}</p>}
         <form onSubmit={this.handleAddOption}>
         <input type="text" name="option" />
         <button >Add Option</button>

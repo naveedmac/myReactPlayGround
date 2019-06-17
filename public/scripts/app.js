@@ -27,7 +27,7 @@ var IndecisionApp = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
         _this.state = {
-            options: ["Thing One", "Thing Two", "Thing Four"]
+            options: []
         };
         _this.handleDeleteAll = _this.handleDeleteAll.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
@@ -38,6 +38,13 @@ var IndecisionApp = function (_React$Component) {
     _createClass(IndecisionApp, [{
         key: "handleAddOption",
         value: function handleAddOption(option) {
+            if (!option) {
+                return "Please enter valid value to add item";
+            } else if (this.state.options.includes(option)) {
+                console.log(option);
+
+                return "Option already exsist in array";
+            }
             this.setState(function (preState) {
                 return { options: preState.options.concat(option) };
             });
@@ -182,6 +189,9 @@ var AddOption = function (_React$Component3) {
         var _this3 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
 
         _this3.handleAddOption = _this3.handleAddOption.bind(_this3);
+        _this3.state = {
+            error: undefined
+        };
         return _this3;
     }
 
@@ -190,10 +200,10 @@ var AddOption = function (_React$Component3) {
         value: function handleAddOption(e) {
             e.preventDefault();
             var option = e.target.elements.option.value.trim(); // trim removes the extra spaces from front and end of string
-            if (option) {
-
-                this.props.handleAddOption(option);
-            }
+            var error = this.props.handleAddOption(option);
+            this.setState(function () {
+                return { error: error };
+            });{/** 👈🏻 Shorthand syntax of: error:error */}
         }
         // handleAddOption(){ }
 
@@ -203,6 +213,11 @@ var AddOption = function (_React$Component3) {
             return React.createElement(
                 "div",
                 null,
+                this.state.error && React.createElement(
+                    "p",
+                    null,
+                    this.state.error
+                ),
                 React.createElement(
                     "form",
                     { onSubmit: this.handleAddOption },
