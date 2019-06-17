@@ -24,10 +24,12 @@ var IndecisionApp = function (_React$Component) {
     function IndecisionApp(props) {
         _classCallCheck(this, IndecisionApp);
 
+        /* USING DEFAULT PROPS: 
+        Step 2: Access the value passed in class state like props.option as shown above in constructor*/
         var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
         _this.state = {
-            options: []
+            options: props.options
         };
         _this.handleDeleteAll = _this.handleDeleteAll.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
@@ -66,7 +68,7 @@ var IndecisionApp = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var title = "Indecision App";
+
             var subtitle = "Put your life in hands of computer";
 
             // title={title} we passing javascript expression : string to make it mor flexible.
@@ -74,7 +76,7 @@ var IndecisionApp = function (_React$Component) {
             return React.createElement(
                 "div",
                 null,
-                React.createElement(Header, { title: title, subtitle: subtitle }),
+                React.createElement(Header, { subtitle: subtitle }),
                 React.createElement(Action, { handlePick: this.handlePick, hasOptions: this.state.options.length > 0 }),
                 React.createElement(Options, { handleDeleteAll: this.handleDeleteAll, options: this.state.options }),
                 React.createElement(AddOption, { handleAddOption: this.handleAddOption })
@@ -84,44 +86,51 @@ var IndecisionApp = function (_React$Component) {
 
     return IndecisionApp;
 }(React.Component);
+// USING DEFAULT PROPS:
+/** 
+ * Step 1: Pass the default value like this to className.defaultProps
+ * Step 2: Access the value passed in class state like props.option as shown above in constructor
+ * Step 3: Now if you pass the props in Class tag, then this value will not used else, if no props passed this will be used as shown below */
 
-var Header = function (_React$Component2) {
-    _inherits(Header, _React$Component2);
 
-    function Header() {
-        _classCallCheck(this, Header);
+IndecisionApp.defaultProps = {
+    options: []
 
-        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
-    }
+    // class Header extends React.Component{  // we extend React.Component class to create REACT COMPONENT
+    //     render(){ // REACT COMPONENT needs render function 
+    //         // console.log(this.props); // this is how we dump object values on screen
+    //         // Writing screen string in jsx we use parenthisis as we did for title 👇🏻
+    //         return <div>
+    //         <h1>{this.props.title}</h1> 
+    //         <h2>{this.props.subtitle}</h2>
 
-    _createClass(Header, [{
-        key: "render",
-        // we extend React.Component class to create REACT COMPONENT
-        value: function render() {
-            // REACT COMPONENT needs render function 
-            // console.log(this.props); // this is how we dump object values on screen
-            // Writing screen string in jsx we use parenthisis as we did for title 👇🏻
-            return React.createElement(
-                "div",
-                null,
-                React.createElement(
-                    "h1",
-                    null,
-                    this.props.title
-                ),
-                React.createElement(
-                    "h2",
-                    null,
-                    this.props.subtitle
-                )
-            ); // render returns JSX,this is compulsory part of React Component.
+    //         </div> // render returns JSX,this is compulsory part of React Component.
 
-        }
-    }]);
 
-    return Header;
-}(React.Component);
-
+    //     }
+    // } 
+};var Header = function Header(props) {
+    /* if we want to convert React Class into React Stateless component, 
+    we pass props as arguments, we dont use "this" for props is React Stateless component  */
+    return React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "h1",
+            null,
+            props.title
+        ),
+        props.subtitle && React.createElement(
+            "h2",
+            null,
+            props.subtitle
+        )
+    ); // render returns JSX,this is compulsory part of React Component.
+};
+// Setting defult value of props, incase props is not passed.
+Header.defaultProps = {
+    title: "Indecision App"
+};
 var Action = function Action(props) {
 
     return React.createElement(
@@ -180,19 +189,19 @@ var Option = function Option(props) {
 //     }
 // }
 
-var AddOption = function (_React$Component3) {
-    _inherits(AddOption, _React$Component3);
+var AddOption = function (_React$Component2) {
+    _inherits(AddOption, _React$Component2);
 
     function AddOption(props) {
         _classCallCheck(this, AddOption);
 
-        var _this3 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+        var _this2 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
 
-        _this3.handleAddOption = _this3.handleAddOption.bind(_this3);
-        _this3.state = {
+        _this2.handleAddOption = _this2.handleAddOption.bind(_this2);
+        _this2.state = {
             error: undefined
         };
-        return _this3;
+        return _this2;
     }
 
     _createClass(AddOption, [{
@@ -203,7 +212,10 @@ var AddOption = function (_React$Component3) {
             var error = this.props.handleAddOption(option);
             this.setState(function () {
                 return { error: error };
-            });{/** 👈🏻 Shorthand syntax of: error:error */}
+            });{} /** 👈🏻 Shorthand syntax of: error:error */
+            //Every component can have their own state AND Constructor as above.
+            // if we want to access any function passed to the class as props we use: this.props.etc e.g.:
+            // const error=this.props.handleAddOption(option);
         }
         // handleAddOption(){ }
 
@@ -248,4 +260,5 @@ var AddOption = function (_React$Component3) {
 // 👆🏻 Instead of JSX we can provide direct react component like this 👇🏻
 
 
-ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById('app')); // Render React component we use this
+ReactDOM.render(React.createElement(IndecisionApp, { options: ['option one', 'option two'] }), document.getElementById('app')); // Render React component we use this 
+/* Step 3: Now if you pass the props in Class tag, then this value will not used else, if no props passed this will be used as shown above */
