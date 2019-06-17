@@ -28,11 +28,13 @@ class IndecisionApp extends React.Component{
             
             return "Option already exsist in array"
         }   
-        this.setState((preState)=>{ 
-            return{ options:preState.options.concat(option) }})
+        // this.setState((prevState)=>{ 
+        //     return{ options:prevState.options.concat(option) }})
+        // Shorthand syntax of this retruning object is this :
+        this.setState((prevState)=>({options:prevState.options.concat(option)}));
     }
     handleDeleteAll(){
-        this.setState(()=>{return{ options:[]}})
+        this.setState(()=>{({ options:[]})});
     }
     handlePick(){
         
@@ -146,7 +148,8 @@ class AddOption extends React.Component{
         e.preventDefault();
         const option=e.target.elements.option.value.trim();// trim removes the extra spaces from front and end of string
         const error=this.props.handleAddOption(option);
-        this.setState(()=>{return {error}});{/** 👈🏻 Shorthand syntax of: error:error */}
+        // this.setState(()=>{return {error}});{/** 👈🏻 Shorthand syntax of: error:error */}
+        this.setState(()=>({error}));{/** 👈🏻 Shorthand syntax of: error:error */}
         //Every component can have their own state AND Constructor as above.
         // if we want to access any function passed to the class as props we use: this.props.etc e.g.:
         // const error=this.props.handleAddOption(option);
