@@ -66,13 +66,15 @@ var IndecisionApp = function (_React$Component) {
     }, {
         key: "handleRemove",
         value: function handleRemove(optionToRemove) {
-            console.log("Remove Item");
+            // We will use this funciton to pass through 2 layers of components i.e. Options and through "Options" to "Option"
             this.setState(function (prevState) {
                 return {
                     options: prevState.options.filter(function (option) {
                         return optionToRemove !== option;
                     }) };
             });
+            // filter removes the option passed to arrow function via filter 
+            // if false is retruned incase of true it will keep the item.
         }
     }, {
         key: "handlePick",

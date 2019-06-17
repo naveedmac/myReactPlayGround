@@ -39,9 +39,11 @@ class IndecisionApp extends React.Component{
         this.setState(()=>{({ options:[]})});
     }
     handleRemove(optionToRemove){
-        console.log("Remove Item");
+        // We will use this funciton to pass through 2 layers of components i.e. Options and through "Options" to "Option"
         this.setState((prevState)=>({
-            options: prevState.options.filter((option)=>{return optionToRemove !== option})}))
+            options: prevState.options.filter((option)=>optionToRemove !== option)})) 
+            // filter removes the option passed to arrow function via filter 
+            // if false is retruned incase of true it will keep the item.
         
     }
     handlePick(){
