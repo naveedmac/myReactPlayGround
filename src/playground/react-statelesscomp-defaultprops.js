@@ -18,7 +18,9 @@ class IndecisionApp extends React.Component{
         }
         this.handleDeleteAll=this.handleDeleteAll.bind(this);
         this.handlePick=this.handlePick.bind(this);
-        this.handleAddOption=this.handleAddOption.bind(this)
+        this.handleAddOption=this.handleAddOption.bind(this);
+        this.handleRemove=this.handleRemove.bind(this);
+
     }
     handleAddOption(option){
         if (!option){
@@ -36,8 +38,11 @@ class IndecisionApp extends React.Component{
     handleDeleteAll(){
         this.setState(()=>{({ options:[]})});
     }
-    handlePick(){
+    handleRemove(option){
+        console.log("Remove Item");
         
+    }
+    handlePick(){
         let randomValue=Math.floor(Math.random()*this.state.options.length)
         alert(this.state.options[randomValue])
     }
@@ -110,7 +115,12 @@ const Options=(props)=>{
         <button 
         onClick={props.handleDeleteAll}>Delete All
         </button>{/** Child cannot change its props but it can trigger the function which will change values of props and forces it parent component to Re-render like here 👈🏻 */}
-        {props.options.map((option)=> <Option key={option} optionText={option}/>)}{/* We dont use curly braces, otherwise it wouldnt work*/}
+        {props.options.map((option)=> 
+            <Option 
+            key={option} 
+            optionText={option}
+            handleRemove={props.handleRemove} 
+            />)}{/* We dont use curly braces, otherwise it wouldnt work*/}
 
         
         <Option />
@@ -129,7 +139,10 @@ const Options=(props)=>{
 //     }
 // }
 const Option =(props)=>{
-    return <div>{props.optionText}</div>
+    return <div>
+    {props.optionText}
+    <button onClick={(e)=>{props.handleRemove(props.optionText)}}>remove</button>
+    </div>
 }
 // class Option extends React.Component{
 //     render(){

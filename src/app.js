@@ -18,7 +18,9 @@ class IndecisionApp extends React.Component{
         }
         this.handleDeleteAll=this.handleDeleteAll.bind(this);
         this.handlePick=this.handlePick.bind(this);
-        this.handleAddOption=this.handleAddOption.bind(this)
+        this.handleAddOption=this.handleAddOption.bind(this);
+        this.handleRemove=this.handleRemove.bind(this);
+
     }
     handleAddOption(option){
         if (!option){
@@ -28,14 +30,21 @@ class IndecisionApp extends React.Component{
             
             return "Option already exsist in array"
         }   
-        this.setState((preState)=>{ 
-            return{ options:preState.options.concat(option) }})
+        // this.setState((prevState)=>{ 
+        //     return{ options:prevState.options.concat(option) }})
+        // Shorthand syntax of this retruning object is this :
+        this.setState((prevState)=>({options:prevState.options.concat(option)}));
     }
     handleDeleteAll(){
-        this.setState(()=>{return{ options:[]}})
+        this.setState(()=>{({ options:[]})});
+    }
+    handleRemove(optionToRemove){
+        console.log("Remove Item");
+        this.setState((prevState)=>({
+            options: prevState.options.filter((option)=>{return optionToRemove !== option})}))
+        
     }
     handlePick(){
-        
         let randomValue=Math.floor(Math.random()*this.state.options.length)
         alert(this.state.options[randomValue])
     }
@@ -48,7 +57,7 @@ class IndecisionApp extends React.Component{
         return <div>
                 <Header  subtitle={subtitle}  /> 
                 <Action handlePick={this.handlePick} hasOptions={this.state.options.length>0 }/>
-                <Options handleDeleteAll={this.handleDeleteAll} options={this.state.options}/>
+                <Options handleDeleteAll={this.handleDeleteAll} handleRemove={this.handleRemove} options={this.state.options}/>
                 <AddOption handleAddOption={this.handleAddOption}/>
             </div>
     }
@@ -108,7 +117,12 @@ const Options=(props)=>{
         <button 
         onClick={props.handleDeleteAll}>Delete All
         </button>{/** Child cannot change its props but it can trigger the function which will change values of props and forces it parent component to Re-render like here 👈🏻 */}
-        {props.options.map((option)=> <Option key={option} optionText={option}/>)}{/* We dont use curly braces, otherwise it wouldnt work*/}
+        {props.options.map((option)=> 
+            <Option 
+            key={option} 
+            optionText={option}
+            handleRemove={props.handleRemove} 
+            />)}{/* We dont use curly braces, otherwise it wouldnt work*/}
 
         
         <Option />
@@ -127,7 +141,10 @@ const Options=(props)=>{
 //     }
 // }
 const Option =(props)=>{
-    return <div>{props.optionText}</div>
+    return <div>
+    {props.optionText}
+    <button onClick={(e)=>{props.handleRemove(props.optionText)}}>remove</button>
+    </div>
 }
 // class Option extends React.Component{
 //     render(){
@@ -146,7 +163,8 @@ class AddOption extends React.Component{
         e.preventDefault();
         const option=e.target.elements.option.value.trim();// trim removes the extra spaces from front and end of string
         const error=this.props.handleAddOption(option);
-        this.setState(()=>{return {error}});{/** 👈🏻 Shorthand syntax of: error:error */}
+        // this.setState(()=>{return {error}});{/** 👈🏻 Shorthand syntax of: error:error */}
+        this.setState(()=>({error}));{/** 👈🏻 Shorthand syntax of: error:error */}
         //Every component can have their own state AND Constructor as above.
         // if we want to access any function passed to the class as props we use: this.props.etc e.g.:
         // const error=this.props.handleAddOption(option);

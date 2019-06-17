@@ -34,6 +34,8 @@ var IndecisionApp = function (_React$Component) {
         _this.handleDeleteAll = _this.handleDeleteAll.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
+        _this.handleRemove = _this.handleRemove.bind(_this);
+
         return _this;
     }
 
@@ -47,21 +49,34 @@ var IndecisionApp = function (_React$Component) {
 
                 return "Option already exsist in array";
             }
-            this.setState(function (preState) {
-                return { options: preState.options.concat(option) };
+            // this.setState((prevState)=>{ 
+            //     return{ options:prevState.options.concat(option) }})
+            // Shorthand syntax of this retruning object is this :
+            this.setState(function (prevState) {
+                return { options: prevState.options.concat(option) };
             });
         }
     }, {
         key: "handleDeleteAll",
         value: function handleDeleteAll() {
             this.setState(function () {
-                return { options: [] };
+                ({ options: [] });
+            });
+        }
+    }, {
+        key: "handleRemove",
+        value: function handleRemove(optionToRemove) {
+            console.log("Remove Item");
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.filter(function (option) {
+                        return optionToRemove !== option;
+                    }) };
             });
         }
     }, {
         key: "handlePick",
         value: function handlePick() {
-
             var randomValue = Math.floor(Math.random() * this.state.options.length);
             alert(this.state.options[randomValue]);
         }
@@ -78,7 +93,7 @@ var IndecisionApp = function (_React$Component) {
                 null,
                 React.createElement(Header, { subtitle: subtitle }),
                 React.createElement(Action, { handlePick: this.handlePick, hasOptions: this.state.options.length > 0 }),
-                React.createElement(Options, { handleDeleteAll: this.handleDeleteAll, options: this.state.options }),
+                React.createElement(Options, { handleDeleteAll: this.handleDeleteAll, handleRemove: this.handleRemove, options: this.state.options }),
                 React.createElement(AddOption, { handleAddOption: this.handleAddOption })
             );
         }
@@ -159,7 +174,11 @@ var Options = function Options(props) {
             "Delete All"
         ),
         props.options.map(function (option) {
-            return React.createElement(Option, { key: option, optionText: option });
+            return React.createElement(Option, {
+                key: option,
+                optionText: option,
+                handleRemove: props.handleRemove
+            });
         }),
         React.createElement(Option, null)
     );
@@ -180,7 +199,14 @@ var Option = function Option(props) {
     return React.createElement(
         "div",
         null,
-        props.optionText
+        props.optionText,
+        React.createElement(
+            "button",
+            { onClick: function onClick(e) {
+                    props.handleRemove(props.optionText);
+                } },
+            "remove"
+        )
     );
 };
 // class Option extends React.Component{
@@ -210,6 +236,7 @@ var AddOption = function (_React$Component2) {
             e.preventDefault();
             var option = e.target.elements.option.value.trim(); // trim removes the extra spaces from front and end of string
             var error = this.props.handleAddOption(option);
+            // this.setState(()=>{return {error}});{/** 👈🏻 Shorthand syntax of: error:error */}
             this.setState(function () {
                 return { error: error };
             });{} /** 👈🏻 Shorthand syntax of: error:error */
