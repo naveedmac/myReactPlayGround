@@ -31,10 +31,18 @@ var IndecisionApp = function (_React$Component) {
         };
         _this.handleDeleteAll = _this.handleDeleteAll.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
+        _this.handleAddOption = _this.handleAddOption.bind(_this);
         return _this;
     }
 
     _createClass(IndecisionApp, [{
+        key: "handleAddOption",
+        value: function handleAddOption(option) {
+            this.setState(function (preState) {
+                return { options: preState.options.concat(option) };
+            });
+        }
+    }, {
         key: "handleDeleteAll",
         value: function handleDeleteAll() {
             this.setState(function () {
@@ -62,7 +70,7 @@ var IndecisionApp = function (_React$Component) {
                 React.createElement(Header, { title: title, subtitle: subtitle }),
                 React.createElement(Action, { handlePick: this.handlePick, hasOptions: this.state.options.length > 0 }),
                 React.createElement(Options, { handleDeleteAll: this.handleDeleteAll, options: this.state.options }),
-                React.createElement(AddOption, null)
+                React.createElement(AddOption, { handleAddOption: this.handleAddOption })
             );
         }
     }]);
@@ -168,19 +176,23 @@ var Option = function Option(props) {
 var AddOption = function (_React$Component3) {
     _inherits(AddOption, _React$Component3);
 
-    function AddOption() {
+    function AddOption(props) {
         _classCallCheck(this, AddOption);
 
-        return _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).apply(this, arguments));
+        var _this3 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+
+        _this3.handleAddOption = _this3.handleAddOption.bind(_this3);
+        return _this3;
     }
 
     _createClass(AddOption, [{
-        key: "handleForm",
-        value: function handleForm(e) {
+        key: "handleAddOption",
+        value: function handleAddOption(e) {
             e.preventDefault();
             var option = e.target.elements.option.value.trim(); // trim removes the extra spaces from front and end of string
             if (option) {
-                alert("Form Submitted. Value in Option : " + option);
+
+                this.props.handleAddOption(option);
             }
         }
         // handleAddOption(){ }
@@ -193,7 +205,7 @@ var AddOption = function (_React$Component3) {
                 null,
                 React.createElement(
                     "form",
-                    { onSubmit: this.handleForm },
+                    { onSubmit: this.handleAddOption },
                     React.createElement("input", { type: "text", name: "option" }),
                     React.createElement(
                         "button",

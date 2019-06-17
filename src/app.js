@@ -16,6 +16,10 @@ class IndecisionApp extends React.Component{
         }
         this.handleDeleteAll=this.handleDeleteAll.bind(this);
         this.handlePick=this.handlePick.bind(this);
+        this.handleAddOption=this.handleAddOption.bind(this)
+    }
+    handleAddOption(option){
+        this.setState((preState)=>{ return{options:preState.options.concat(option)}})
     }
     handleDeleteAll(){
         this.setState(()=>{return{ options:[]}})
@@ -35,7 +39,7 @@ class IndecisionApp extends React.Component{
                 <Header title={title} subtitle={subtitle}  /> 
                 <Action handlePick={this.handlePick} hasOptions={this.state.options.length>0 }/>
                 <Options handleDeleteAll={this.handleDeleteAll} options={this.state.options}/>
-                <AddOption />
+                <AddOption handleAddOption={this.handleAddOption}/>
             </div>
     }
 }
@@ -101,19 +105,23 @@ const Option =(props)=>{
 //     }
 // }
 class AddOption extends React.Component{
-    handleForm(e){
+    constructor(props){
+        super(props);
+        this.handleAddOption=this.handleAddOption.bind(this);
+    }
+    handleAddOption(e){
         e.preventDefault();
         const option=e.target.elements.option.value.trim();// trim removes the extra spaces from front and end of string
         if (option){
-            alert(`Form Submitted. Value in Option : ${option}`)
-
+            
+            this.props.handleAddOption(option);
         }
     }
     // handleAddOption(){ }
 
     render(){
         return <div>
-        <form onSubmit={this.handleForm}>
+        <form onSubmit={this.handleAddOption}>
         <input type="text" name="option" />
         <button >Add Option</button>
         </form>
