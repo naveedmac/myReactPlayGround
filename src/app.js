@@ -50,6 +50,16 @@ class IndecisionApp extends React.Component{
         let randomValue=Math.floor(Math.random()*this.state.options.length)
         alert(this.state.options[randomValue])
     }
+    // LIFE CYCLE METHODS
+    /** REACT CLASS provide different lifecycle method which are trigered when particular event is trigered some of them are as follows:
+     * componenetDidMount(){
+     * console.log('fetching Data') // canbe used to retrive data from DB / localStorage
+     * }
+     * componenetDidUpdate(){ // canbe used to save data to DB / localStorage
+     * }
+     * componenetWillUnmount(){  // Seldom used to when component is removed from screen
+     * }
+    */
     render(){
         
         const subtitle= "Put your life in hands of computer"
