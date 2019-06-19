@@ -45,6 +45,26 @@ we can access these props(key values) as we do for normal classes by using "this
  * "26"
  * 
 */
+/*
+JSON DATA
+***********
+String representation of JavaScript Object Notation
+****************************************************
+it saves object in string foramt, like this:
+
+JSON.stringify // this will retrun JSObject in string format like this:
+JSON.stringify({age:26});
+returns>"{"age":26}"
+const json=JSON.stringify({age:26});
+>json
+>"{"age":26}"
+////// Notes: JSON.parse // this will return true JS object
+>JSON.parse(json)
+returns>Object {age:26}
+>JSON.parse(json).age
+>26
+*/
+
 var IndecisionApp = function (_React$Component) {
     _inherits(IndecisionApp, _React$Component);
 
@@ -86,8 +106,9 @@ var IndecisionApp = function (_React$Component) {
     }, {
         key: "handleDeleteAll",
         value: function handleDeleteAll() {
+
             this.setState(function () {
-                ({ options: [] });
+                return { options: [] };
             });
         }
     }, {
@@ -120,6 +141,30 @@ var IndecisionApp = function (_React$Component) {
          * }
         */
 
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            try {
+                var json = localStorage.getItem('options');
+                var options = JSON.parse(json);
+                if (options) {
+                    this.setState(function () {
+                        return { options: options };
+                    });
+                }
+            } catch (e) {
+                //do nothing
+            }
+        }
+    }, {
+        key: "componentDidUpdate",
+        value: function componentDidUpdate(prevProps, prevState) {
+            if (prevState.options.length !== this.state.options.length) {
+
+                var json = JSON.stringify(this.state.options);
+                localStorage.setItem("options", json);
+            }
+        }
     }, {
         key: "render",
         value: function render() {
@@ -213,14 +258,18 @@ var Options = function Options(props) {
                 onClick: props.handleDeleteAll },
             "Delete All"
         ),
+        props.options.length === 0 && React.createElement(
+            "p",
+            null,
+            "Add some option to get started"
+        ),
         props.options.map(function (option) {
             return React.createElement(Option, {
                 key: option,
                 optionText: option,
                 handleRemove: props.handleRemove
             });
-        }),
-        React.createElement(Option, null)
+        })
     );
 };
 // class Options extends React.Component{
@@ -283,6 +332,9 @@ var AddOption = function (_React$Component2) {
             //Every component can have their own state AND Constructor as above.
             // if we want to access any function passed to the class as props we use: this.props.etc e.g.:
             // const error=this.props.handleAddOption(option);
+            if (!error) {
+                e.target.elements.option.value = '';
+            }
         }
         // handleAddOption(){ }
 

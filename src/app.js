@@ -35,6 +35,26 @@ we can access these props(key values) as we do for normal classes by using "this
  * "26"
  * 
 */
+/*
+JSON DATA
+***********
+String representation of JavaScript Object Notation
+****************************************************
+it saves object in string foramt, like this:
+
+JSON.stringify // this will retrun JSObject in string format like this:
+JSON.stringify({age:26});
+returns>"{"age":26}"
+const json=JSON.stringify({age:26});
+>json
+>"{"age":26}"
+////// Notes: JSON.parse // this will return true JS object
+>JSON.parse(json)
+returns>Object {age:26}
+>JSON.parse(json).age
+>26
+*/
+
 class IndecisionApp extends React.Component{
     constructor(props){
         super(props);
@@ -63,7 +83,8 @@ class IndecisionApp extends React.Component{
         this.setState((prevState)=>({options:prevState.options.concat(option)}));
     }
     handleDeleteAll(){
-        this.setState(()=>{({ options:[]})});
+        
+        this.setState(()=>({ options:[] }));
     }
     handleRemove(optionToRemove){
         // We will use this funciton to pass through 2 layers of components i.e. Options and through "Options" to "Option"
@@ -87,6 +108,27 @@ class IndecisionApp extends React.Component{
      * componenetWillUnmount(){  // Seldom used to when component is removed from screen
      * }
     */
+   componentDidMount(){
+       try{
+           const json= localStorage.getItem('options')
+       const options=JSON.parse(json)
+       if(options){
+        this.setState(()=>({options}));
+        }
+    }
+    catch(e){
+        //do nothing
+    }
+   }
+   componentDidUpdate(prevProps,prevState){
+       if (prevState.options.length !== this.state.options.length ){
+        
+        const json= JSON.stringify(this.state.options);
+        localStorage.setItem("options",json);
+        
+       }
+
+   }
     render(){
         
         const subtitle= "Put your life in hands of computer"
@@ -156,6 +198,7 @@ const Options=(props)=>{
         <button 
         onClick={props.handleDeleteAll}>Delete All
         </button>{/** Child cannot change its props but it can trigger the function which will change values of props and forces it parent component to Re-render like here 👈🏻 */}
+        {props.options.length ===0 && <p>Add some option to get started</p>}
         {props.options.map((option)=> 
             <Option 
             key={option} 
@@ -164,7 +207,7 @@ const Options=(props)=>{
             />)}{/* We dont use curly braces, otherwise it wouldnt work*/}
 
         
-        <Option />
+        
         </div>
 }
 // class Options extends React.Component{
@@ -207,6 +250,9 @@ class AddOption extends React.Component{
         //Every component can have their own state AND Constructor as above.
         // if we want to access any function passed to the class as props we use: this.props.etc e.g.:
         // const error=this.props.handleAddOption(option);
+        if(!error){
+            e.target.elements.option.value = ''
+        }
        
     }
     // handleAddOption(){ }
