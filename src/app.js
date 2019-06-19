@@ -8,6 +8,33 @@ we can access these props(key values) as we do for normal classes by using "this
 
 //Notes: for React Components we need uppercase letter to define class.
 //React uses Uppercase letter to differentiate between html tags and reacts components
+/** Local Storage
+ * it's "key" "value" store
+ * to store "value", we do need key.
+ * It only returns String data
+ * to fetch the value we just need key e.g.
+ * Saving Values
+ * ****************
+ * >localStorage.setItem('name','Naveed')
+ * Retreiving Values
+ * *****************
+ * >localStorage.getItem('name')
+ * retruns> "Naveed"
+ * after Refresh
+ * this will return value even after pageload / refresh
+ * >localStorage.getItem('name')
+ * retruns> "Naveed"
+ * REmove Items from local storage:
+ * *******************************
+ * >localStorage.removeItem('name')
+ * >localStorage.getItem('name')
+ * retruns> null
+ * It Only Return String Items e.g.:
+ * >localStorage.setItem('age',26)
+ * >localStorage.getItem('age')
+ * "26"
+ * 
+*/
 class IndecisionApp extends React.Component{
     constructor(props){
         super(props);
