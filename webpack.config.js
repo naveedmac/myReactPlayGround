@@ -10,3 +10,5 @@ output:{
     filename:'bundle.js'
 }
 };
+
+//loader

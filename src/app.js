@@ -1,13 +1,9 @@
-// import './utils'; // each files mantain local scope
-import substract, {square , add} from './utils' 
-/* for defaults export it should be outside curly braces and name doesnt have to match with the export file name */
-import isSenior,{isAdult,canEat} from './person'
-console.log("app.js running!");
-console.log(square(5));
-console.log(add(5 , 6 ));
-console.log(substract(5 , 6 ));
-console.log(`He is an adult:${isAdult(19)}`);
-console.log(`He  can eat:${canEat(0)}`);
-console.log(`He  is Senior:${isSenior(65)}`);
+// // install -> import -> use
+// import validator from 'validator'; // if we dont use dot for file path node.js will look for installed node_modules
 
+// console.log(validator.isEmail('test@gmail.com'));
+import React from 'react';
+import ReactDOM from 'react-dom';
 
+const template= React.createElement('p',{},'testing 123')
+ReactDOM.render(template,document.getElementById('app'));
