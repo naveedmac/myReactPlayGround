@@ -6,6 +6,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import AddOption from './components/AddOption'
 
+import Options from './components/Options'
+import Action from './components/Action'
+import Header from './components/Header'
+
 
 class IndecisionApp extends React.Component{
     constructor(props){
@@ -117,72 +121,5 @@ IndecisionApp.defaultProps={
 
 //     }
 // } 
-const Header=(props)=>{ /* if we want to convert React Class into React Stateless component, 
-                        we pass props as arguments, we dont use "this" for props is React Stateless component  */
-    return <div>{/** 👈🏻 Return is important part of React Stateless component*/}
-        <h1>{props.title}</h1> 
-        { props.subtitle && <h2>{props.subtitle}</h2>}
-        
-        </div> // render returns JSX,this is compulsory part of React Component.
-}
-// Setting defult value of props, incase props is not passed.
-Header.defaultProps = {
-    title: "Indecision App"
-}
-const Action=(props)=>{
-    
-        return <button 
-        onClick={props.handlePick} 
-        disabled={!props.hasOptions}>
-        What Should I do?
-        </button>
-    
-}
-// class Action extends React.Component{
-    
-//     render(){
-//         return <button onClick={this.props.handlePick} disabled={!this.props.hasOptions}>What Should I do?</button>
-//     }
-// }
-const Options=(props)=>{
-    return <div>
-        {/*this.props.options.length*/} {/*If we are creating an array of JSX as below for option component we need key props e.g.👇🏻, but key isn't going to be available in component, it is a special reserve word  */} 
-        <button 
-        onClick={props.handleDeleteAll}>Delete All
-        </button>{/** Child cannot change its props but it can trigger the function which will change values of props and forces it parent component to Re-render like here 👈🏻 */}
-        {props.options.length ===0 && <p>Add some option to get started</p>}
-        {props.options.map((option)=> 
-            <Option 
-            key={option} 
-            optionText={option}
-            handleRemove={props.handleRemove} 
-            />)}{/* We dont use curly braces, otherwise it wouldnt work*/}
 
-        
-        
-        </div>
-}
-// class Options extends React.Component{
-//     render(){
-//         return <div>
-//         {/*this.props.options.length*/} {/*If we are creating an array of JSX as below for option component we need key props e.g.👇🏻, but key isn't going to be available in component, it is a special reserve word  */} 
-//         <button onClick={this.props.handleDeleteAll}>Delete All</button>{/** Child cannot change its props but it can trigger the function which will change values of props and forces it parent component to Re-render like here 👈🏻 */}
-//         {this.props.options.map((option)=> <Option key={option} optionText={option}/>)}{/* We dont use curly braces, otherwise it wouldnt work*/}
-
-        
-//         <Option />
-//         </div>
-//     }
-// }
-const Option =(props)=>{
-    return <div>
-    {props.optionText}
-    <button onClick={(e)=>{props.handleRemove(props.optionText)}}>remove</button>
-    </div>
-}
-// class Option extends React.Component{
-//     render(){
-//         return <div>{this.props.optionText}</div>
-//     }
-// }
 ReactDOM.render(<IndecisionApp options={['option one', 'option two']} />,document.getElementById('app')) // Render React component we use this 
